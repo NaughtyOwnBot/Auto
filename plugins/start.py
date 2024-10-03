@@ -79,17 +79,19 @@ async def start_command(client: Client, message: Message):
                 await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
             except:
                 pass
+                if (SECONDS == 0):
+                    return
+                notification_msg = await message.reply(f"<b>🌺 <u>Notice</u> 🌺</b>\n\n<b>This file will be  deleted in {get_exp_time(SECONDS)}. Please save or forward it to your saved messages before it gets deleted.</b>")
+                await asyncio.sleep(SECONDS)    
+                for snt_msg in snt_msgs:    
+                    try:    
+                        await snt_msg.delete()  
+                    except: 
+                        pass    
+                await notification_msg.edit("<b>Your file has been successfully deleted! 😼</b>")  
+                return
 
-        SD = await message.reply_text("<b>❗️ <u>bakka!</u> ❗️</b>\n\n<b>This video / file will be deleted in 16 hours (Due to copyright issues).\n\n📌 Please Keep supporting us.</b>")
-        await asyncio.sleep(SECONDS)
-
-        for data in Codeflix:
-            try:
-                await data.delete()
-                await k.edit_text("<b>Your video / file is successfully deleted ✅!</b>")
-            except:
-                pass
-        
+       
     else:
         reply_markup = InlineKeyboardMarkup([
             [InlineKeyboardButton("ʜᴇʟᴘ", callback_data='help'),
