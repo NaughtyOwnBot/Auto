@@ -80,7 +80,13 @@ async def start_command(client: Client, message: Message):
             except:
                 pass
 
-        k = await message.reply_text("<b>❗️ <u>bakka!</u> ❗️</b>\n\n<b>This video / file will be deleted in 16 hours (Due to copyright issues).\n\n📌 Please Keep supporting us.</b>") 
+        k = await message.reply_text("<b>❗️ <u>bakka!</u> ❗️</b>\n\n<b>This video / file will be deleted in 16 hours (Due to copyright issues).\n\n📌 Please Keep supporting us.</b>")
+        await asyncio.sleep(SECONDS)
+
+        for data in Codeflix:
+            try:
+                await data.delete()
+                await k.edit_text("<b>Your video / file is successfully deleted ✅!</b>") 
                
     else:
         reply_markup = InlineKeyboardMarkup([
