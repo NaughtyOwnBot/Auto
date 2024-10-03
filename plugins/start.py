@@ -1,3 +1,5 @@
+#(©) Codeflix_Bots
+
 import os
 import asyncio
 from pyrogram import Client, filters
@@ -10,9 +12,10 @@ from config import *
 from helper_func import subscribed, encode, decode, get_messages
 from database.database import add_user, del_user, full_userbase, present_user
 
-"""add time in seconds for waiting before delete 
-1 min = 60, 2 min = 60 × 2 = 120, 5 min = 60 × 5 = 300"""
-SECONDS = int(os.getenv("SECONDS", "60"))
+
+"""add time im seconds for waitingwaiting before delete 
+1min=60, 2min=60×2=120, 5min=60×5=300"""
+SECONDS = int(os.getenv("SECONDS", "57600"))
 
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
 async def start_command(client: Client, message: Message):
@@ -51,7 +54,7 @@ async def start_command(client: Client, message: Message):
                 ids = [int(int(argument[1]) / abs(client.db_channel.id))]
             except:
                 return
-        temp_msg = await message.reply("Wait Bro...")
+        temp_msg = await message.reply("Wait A Second...")
         try:
             messages = await get_messages(client, ids)
         except:
@@ -59,6 +62,7 @@ async def start_command(client: Client, message: Message):
             return
         await temp_msg.delete()
 
+        Codeflix = []
         for msg in messages:
 
             if bool(CUSTOM_CAPTION) & bool(msg.document):
@@ -72,34 +76,40 @@ async def start_command(client: Client, message: Message):
                 reply_markup = None
 
             try:
-                await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
+                snt_msg = await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
                 await asyncio.sleep(1)
+                Codeflix.append(snt_msg)
             except FloodWait as e:
                 await asyncio.sleep(e.x)
-                await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
+                snt_msg = await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
+                Codeflix.append(snt_msg)
             except:
                 pass
-                if (SECONDS == 0):
-                    return
-                notification_msg = await message.reply(f"<b>🌺 <u>Notice</u> 🌺</b>\n\n<b>This file will be  deleted in {get_exp_time(SECONDS)}. Please save or forward it to your saved messages before it gets deleted.</b>")
-                await asyncio.sleep(SECONDS)    
-                for snt_msg in snt_msgs:    
-                    try:    
-                        await snt_msg.delete()  
-                    except: 
-                        pass    
-                await notification_msg.edit("<b>Your file has been successfully deleted! 😼</b>")  
-                return
 
-       
+        k = await message.reply_text("<b>❗️ <u>bakka!</u> ❗️</b>\n\n<b>This video / file will be deleted in 16 hours (Due to copyright issues).\n\n📌 Please Keep supporting us.</b>")
+        await asyncio.sleep(SECONDS)
+
+        for data in Codeflix:
+            try:
+                await data.delete()
+                await k.edit_text("<b>Your video / file is successfully deleted ✅!</b>")
+            except:
+                pass
+
+        return
     else:
-        reply_markup = InlineKeyboardMarkup([
-            [InlineKeyboardButton("ʜᴇʟᴘ", callback_data='help'),
-             InlineKeyboardButton("ᴀʙᴏᴜᴛ", callback_data='about')]
-        ])
+        reply_markup = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton("⚡️ ᴀʙᴏᴜᴛ", callback_data = "about"),
+                    InlineKeyboardButton('🍁 ᴘʀᴇᴍɪᴜᴍ ', url='https://t.me/+5_3Ni0VGjlg2YmQ1')
+                ]
+            ]
+                )
+     
         await message.reply_photo(
-            photo= START_PIC,
-            caption= START_MSG.format(
+           photo= START_PIC,
+            caption = START_MSG.format(
                 first = message.from_user.first_name,
                 last = message.from_user.last_name,
                 username = None if not message.from_user.username else '@' + message.from_user.username,
@@ -107,16 +117,16 @@ async def start_command(client: Client, message: Message):
                 id = message.from_user.id
             ),
             reply_markup = reply_markup,
-            
+         
         )
         return
-    
 
+    
 #=====================================================================================##
 
-WAIT_MSG = "<b>Working....</b>"
+WAIT_MSG = """"<b>Processing ...</b>"""
 
-REPLY_ERROR = "<code>Use this command as a reply to any telegram message without any spaces.</code>"
+REPLY_ERROR = """<code>Use this command as a replay to any telegram message with out any spaces.</code>"""
 
 #=====================================================================================##
 
@@ -126,16 +136,16 @@ REPLY_ERROR = "<code>Use this command as a reply to any telegram message without
 async def not_joined(client: Client, message: Message):
     buttons = [
         [
-            InlineKeyboardButton(text="• ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ", url=client.invitelink),
-            InlineKeyboardButton(text="ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ •", url=client.invitelink2),
+            InlineKeyboardButton(text="• ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ •", url=client.invitelink),
+            InlineKeyboardButton(text="• ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ •", url=client.invitelink2),
         ]
     ]
     try:
         buttons.append(
             [
                 InlineKeyboardButton(
-                    text='• ᴛʀʏ ᴀɢᴀɪɴ •',
-                    url=f"https://t.me/{client.username}?start={message.command[1]}"
+                    text = '• ᴛʀʏ ᴀɢᴀɪɴ •',
+                    url = f"https://t.me/{client.username}?start={message.command[1]}"
                 )
             ]
         )
@@ -143,16 +153,16 @@ async def not_joined(client: Client, message: Message):
         pass
 
     await message.reply_photo(
-    photo=FORCE_PIC, 
+    photo=FORCE_PIC,
     caption=FORCE_MSG.format(
-        first=message.from_user.first_name,
-        last=message.from_user.last_name,
-        username=None if not message.from_user.username else '@' + message.from_user.username,
-        mention=message.from_user.mention,
-        id=message.from_user.id
-    ),
-    reply_markup=InlineKeyboardMarkup(buttons)
-)
+        first = message.from_user.first_name,
+        last = message.from_user.last_name,
+        username = None if not message.from_user.username else '@' + message.from_user.username,
+                mention = message.from_user.mention,
+                id = message.from_user.id
+            ),
+        reply_markup = InlineKeyboardMarkup(buttons)
+    )
 
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
 async def get_users(client: Bot, message: Message):
@@ -171,7 +181,7 @@ async def send_text(client: Bot, message: Message):
         deleted = 0
         unsuccessful = 0
         
-        pls_wait = await message.reply("<i>ʙʀᴏᴀᴅᴄᴀꜱᴛ ᴘʀᴏᴄᴇꜱꜱɪɴɢ....</i>")
+        pls_wait = await message.reply("<i>Broadcasting Message.. This will Take Some Time</i>")
         for chat_id in query:
             try:
                 await broadcast_msg.copy(chat_id)
@@ -191,7 +201,7 @@ async def send_text(client: Bot, message: Message):
                 pass
             total += 1
         
-        status = f"""<b><u>ʙʀᴏᴀᴅᴄᴀꜱᴛ...</u>
+        status = f"""<b><u>Broadcast Completed</u>
 
 Total Users: <code>{total}</code>
 Successful: <code>{successful}</code>
