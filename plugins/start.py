@@ -86,8 +86,9 @@ async def start_command(client: Client, message: Message):
         for data in Codeflix:
             try:
                 await data.delete()
-                await k.edit_text("<b>Your video / file is successfully deleted ✅!</b>") 
-               
+                await k.edit_text("<b>Your video / file is successfully deleted ✅!</b>")
+            except:
+                pass
     else:
         reply_markup = InlineKeyboardMarkup([
             [InlineKeyboardButton("ʜᴇʟᴘ", callback_data='help'),
