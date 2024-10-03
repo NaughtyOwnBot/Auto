@@ -15,7 +15,7 @@ from database.database import add_user, del_user, full_userbase, present_user
 
 """add time im seconds for waitingwaiting before delete 
 1min=60, 2min=60×2=120, 5min=60×5=300"""
-SECONDS = int(os.getenv("SECONDS", "57600"))
+SECONDS = int(os.getenv("SECONDS", "60"))
 
 @Bot.on_message(filters.command('start') & filters.private & subscribed)
 async def start_command(client: Client, message: Message):
@@ -86,7 +86,7 @@ async def start_command(client: Client, message: Message):
             except:
                 pass
 
-        k = await message.reply_text("<b>❗️ <u>bakka!</u> ❗️</b>\n\n<b>This video / file will be deleted in 16 hours (Due to copyright issues).\n\n📌 Please Keep supporting us.</b>")
+        k = await message.reply_text("<b>❗️ <u>bakka!</u> ❗️</b>\n\n<b>This video / file will be deleted in 1 minute (Due to copyright issues).\n\n📌 Please Keep supporting us.</b>")
         await asyncio.sleep(SECONDS)
 
         for data in Codeflix:
