@@ -79,15 +79,8 @@ async def start_command(client: Client, message: Message):
                 await msg.copy(chat_id=message.from_user.id, caption = caption, parse_mode = ParseMode.HTML, reply_markup = reply_markup, protect_content=PROTECT_CONTENT)
             except:
                 pass
-            SD = await message.reply_text("❗❕ <u>ʀᴇᴍɪɴᴅᴇʀ</u> ❗❕\n\n<b>ᴛʜᴇ ꜱᴇɴᴛ ꜰɪʟᴇ(ꜱ) ᴡɪʟʟ ʙᴇ ᴅᴇʟᴇᴛᴇᴅ ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ ᴀᴛ ᴀɴʏ ɢɪᴠᴇɴ ᴍᴏᴍᴇɴᴛ.</b>\n\n<i>ᴘʟᴇᴀꜱᴇ ꜰᴏʀᴡᴀʀᴅ ᴛʜᴇᴍ ᴛᴏ ʏᴏᴜʀ ᴘᴇʀꜱᴏɴᴀʟ ꜱᴀᴠᴇᴅ ᴍᴇꜱꜱᴀɢᴇꜱ ꜰɪʀꜱᴛ ᴀɴᴅ ᴛʜᴇɴ ꜱᴛᴀʀᴛ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ ɪᴛ ᴛʜᴇʀᴇ.</i>")
-            await asyncio.sleep(60)
-
-            for snt_msg in snt_msgs:
-                try:
-                    await snt_msg.delete()
-                    await SD.delete()
-                except:
-                    pass
+                    k = await message.reply_text("<b>❗️ <u>bakka!</u> ❗️</b>\n\n<b>This video / file will be deleted in 1 minute (Due to copyright issues).\n\n📌 Please Keep supporting us.</b>")
+        await asyncio.sleep(SECONDS)
         return
     else:
         reply_markup = InlineKeyboardMarkup([
