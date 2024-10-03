@@ -80,7 +80,7 @@ async def start_command(client: Client, message: Message):
             except:
                 pass
 
-        k = await message.reply_text("<b>❗️ <u>bakka!</u> ❗️</b>\n\n<b>This video / file will be deleted in 16 hours (Due to copyright issues).\n\n📌 Please Keep supporting us.</b>")
+        SD = await message.reply_text("<b>❗️ <u>bakka!</u> ❗️</b>\n\n<b>This video / file will be deleted in 16 hours (Due to copyright issues).\n\n📌 Please Keep supporting us.</b>")
         await asyncio.sleep(SECONDS)
 
         for data in Codeflix:
